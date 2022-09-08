@@ -1,0 +1,5 @@
+.dialogsContainer {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    padding: 20px;
+}
