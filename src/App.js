@@ -7,7 +7,7 @@ import DialogsPageContainer from './components/Dialogs/DialogsPageContainer';
 import UsersPageContainer from './components/Users/UsersPageContainer';
 import ProfilePageContainerWithRouterProps from './components/ProfilePage/ProfilePageContainer';
 import  HeaderContainer  from './components/Header/HeaderContainer';
-import { LoginPage } from './components/Login/Login';
+import  LoginPage  from './components/Login/Login';
 
  
 function App(props) {
