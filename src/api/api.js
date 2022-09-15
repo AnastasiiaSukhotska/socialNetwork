@@ -1,4 +1,5 @@
 import * as axios from 'axios';
+import LoginPage from '../components/Login/Login';
 const instance = axios.create({
      withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -48,5 +49,13 @@ export const authAPI = {
     authMe() {
        return instance.get('auth/me')
  
+    },
+
+    login(email, password, rememberMe ) {
+        return instance.post('auth/login', {email, password, rememberMe})
+    },
+
+    logout() {
+        return instance.delete('auth/login')
     }
 }
