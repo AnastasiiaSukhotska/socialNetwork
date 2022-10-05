@@ -13,27 +13,28 @@ const MyNewPostForm = (props) => {
             <div>
                 <Field validate={[required, maxLength10]} name='newPost' component={Textarea} />
             </div>
-            <button>Add post</button>
+            <button className={'generalButton ' + style.newPostBtn}>Add post</button>
         </form>
     )
 }
 
 const NewPostReduxForm = reduxForm({ form: 'newPost' })(MyNewPostForm);
 
-export function MyPosts(props) {
+export const MyPosts = React.memo(props => {
+
     let addNewPost = (formData) => {
         console.log(formData);
         props.addNewPost(formData.newPost);
     }
 
     return (
-        <div>
-            My posts
+        <div className={style.postsContainer}>
+            <b>My posts</b>
             <NewPostReduxForm onSubmit={addNewPost} />
-            <div>Privious posts
+            <div className={style.priviousPostsContainer}>Privious posts
                 {props.posts.map((post) => <PostItem message={post.message} key={post.id} />)}
             </div>
         </div>
     )
-}
+})
 

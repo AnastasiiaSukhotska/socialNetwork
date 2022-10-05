@@ -1,5 +1,11 @@
 .dialogsContainer {
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 2fr 6fr 4fr;
     padding: 20px;
+}
+
+.newMessageBtn {
+    margin-top: 15px;
+    background-color: #7c7872;
+    color: white;
 }

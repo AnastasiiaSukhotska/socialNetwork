@@ -3,15 +3,16 @@ import style from './Navbar.module.css';
 export function Navbar() {
     return (
         <nav className={style.nav}>
-            <div>
+            <div className={style.navItemContainer}>
                 <NavLink to='/profile' className={style.navItem}>Profile</NavLink>
             </div>
-            <div>
+            <div className={style.navItemContainer}>
                 <NavLink to='/dialogs' className={style.navItem}>Messages</NavLink>
             </div>
-            <div>
+            <div className={style.navItemContainer}>
                 <NavLink to='/users' className={style.navItem}>Users</NavLink>
             </div>
+            {   /*
             <div>
                 <a>News</a>
             </div>
@@ -19,8 +20,9 @@ export function Navbar() {
                 <a>Music</a>
             </div>
             <div>
-                <a>Settings</a>
+                <a>Settings</a>  
             </div>
+             */}
         </nav>
     )
 }

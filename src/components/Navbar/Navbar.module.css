@@ -1,13 +1,27 @@
 .nav {
     grid-area: n;
-    background-color: #748077;
+    background-color: #ada872;
     padding: 20px;
+    box-shadow: 1px 0 5px #7c7872;
+    margin-right: 2px;
+  }
+
+  .nav .navItemContainer {
+    padding: 10px;
   }
 
   .nav .navItem {
-    color: white;
+    color: #f8f8f8;
+    text-decoration: none;
+    line-height: 20px;
+    text-transform: uppercase;
+    
   }
 
-  .nav .navItemActive {
-    color: gold;
+
+  
+  .nav .navItem a {
+    cursor: pointer;
   }
+
+ 

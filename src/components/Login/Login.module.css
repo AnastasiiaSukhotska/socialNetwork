@@ -1,0 +1,40 @@
+.error {
+    color: red;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginContainer h1 {
+    text-transform: uppercase;
+    letter-spacing: 1rem;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+ 
+
+}
+
+
+.loginFormItem{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 30px;
+}
+
+.loginFormCheckbox {
+    margin-top: 10px;
+}
+
+.loginFormButton {
+    margin-top: 10px;
+    background-color: #7c7872;
+}

@@ -1,19 +1,20 @@
 import { connect } from "react-redux";
-import { follow, setCurrentPage, setTotalUsersAmount, setUsers, toggleLoading, unfollow, toggleIsFollowingInProgress, getUsers } from "../../redux/reducers/usersPageReducer";
+import { follow, setCurrentPage, setTotalUsersAmount, setUsers, toggleLoading, unfollow, toggleIsFollowingInProgress, requestUsers } from "../../redux/reducers/usersPageReducer";
 import { UsersList } from "./UsersList";
 import React from "react";
 import style from './UsersPage.module.css';
 import { Preloader } from "../Preloader/Preloader";
 import { userAPI } from "../../api/api";
+import { getCountUsers, getCurrentPage, getIsFollowingInProgress, getIsLoading, getPage, getTotalUsersAmount, getUsers } from "../../redux/reducers/users-selectors";
 
 
 class UsersPageContainer extends React.Component {
     componentDidMount() {
-       this.props.getUsers(this.props.countUsers);
+       this.props.requestUsers(this.props.countUsers);
     }
 
     onPageClick = (page) => {
-        this.props.getUsers(this.props.countUsers, page);
+        this.props.requestUsers(this.props.countUsers, page);
     }
 
     render() {
@@ -36,13 +37,13 @@ class UsersPageContainer extends React.Component {
 }
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        countUsers: state.usersPage.countUsers,
-        page: state.usersPage.page,
-        currentPage: state.usersPage.currentPage,
-        totalUsersAmount: state.usersPage.totalUsersAmount,
-        isLoading: state.usersPage.isLoading,
-        isFollowingInProgress: state.usersPage.isFollowingInProgress
+        users: getUsers(state),
+        countUsers: getCountUsers(state),
+        page: getPage(state),
+        currentPage: getCurrentPage(state),
+        totalUsersAmount: getTotalUsersAmount(state),
+        isLoading: getIsLoading(state),
+        isFollowingInProgress: getIsFollowingInProgress(state)
 
     }
 }
@@ -56,6 +57,6 @@ export default connect(mapStateToProps, {
     setTotalUsersAmount,
     toggleLoading,
     toggleIsFollowingInProgress,
-    getUsers
+    requestUsers
     }
 )(UsersPageContainer);

@@ -56,37 +56,34 @@ export let toggleIsFollowingInProgress = (isFollowingInProgress, userId) => {
     }
 }
 
-export let getUsers = (countUsers, page) => {
-    return (dispatch) => {
+export let requestUsers = (countUsers, page) => {
+    return async (dispatch) => {
         dispatch(toggleLoading(true));
-        userAPI.getUsers(countUsers, page).then(res => {
+        let res = await userAPI.getUsers(countUsers, page)
             dispatch(toggleLoading(false));
             dispatch(setUsers(res.items));
+            dispatch(setCurrentPage(page));
             dispatch(setTotalUsersAmount(res.totalCount));
-        })
     }
 }
 
-export let follow = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingInProgress(true, userId));
-        userAPI.followUser(userId).then(res => {
+const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
+    dispatch(toggleIsFollowingInProgress(true, userId));
+      let res = await  apiMethod(userId)
             if (res.data.resultCode === 0) {
-                dispatch(followSuccess(userId));
+                dispatch(actionCreator(userId));
             }
             dispatch(toggleIsFollowingInProgress(false, userId));
-        });
+}
+
+export let follow = (userId) => {
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, userId, userAPI.followUser.bind(userAPI), followSuccess);
     }
 }
 export let unfollow = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingInProgress(true, userId));
-        userAPI.unfollowUser(userId).then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(unfollowSuccess(userId));
-            }
-            dispatch(toggleIsFollowingInProgress(false, userId));
-        });
+    return async (dispatch) => {
+        followUnfollowFlow(dispatch, userId, userAPI.unfollowUser.bind(userAPI), unfollowSuccess);
     }
 }
 

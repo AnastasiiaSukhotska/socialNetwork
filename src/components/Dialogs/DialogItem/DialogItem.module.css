@@ -1,0 +1,10 @@
+.dialogItem a {
+    text-decoration: none;
+    color: #7c7872;
+    font-weight: bold;
+    
+}
+
+.dialogItem{
+    padding: 10px 0;
+}

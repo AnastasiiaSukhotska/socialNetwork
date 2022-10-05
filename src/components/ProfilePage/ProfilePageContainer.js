@@ -1,34 +1,53 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { ProfilePage } from "./ProfilePage";
-import { setProfile, getUserProfile, getUserStatus, updateUserStatus } from "../../redux/reducers/profilePageReducer";
+import { getUserProfile, getUserStatus, updateUserStatus, savePhoto, editProfileModeToggler, saveProfileData } from "../../redux/reducers/profilePageReducer";
 import { useLocation, useNavigate, useParams, Navigate } from 'react-router-dom';
-import { withAuthRedirect } from "../hoc/withAuthRedirect";
 import { compose } from "redux";
 
 
 
 class ProfilePageContainer extends Component {
-    componentDidMount() {
-     let profileId = this.props.router.params.profileId;
-     if (!profileId) {
-         profileId = 25721;
-     }
-     this.props.getUserProfile(profileId);
-     this.props.getUserStatus(profileId);
+    updateUser() {
+        let profileId = this.props.router.params.profileId ? this.props.router.params.profileId : this.props.authorizedUserId;
+        this.props.getUserProfile(profileId);
+        this.props.getUserStatus(profileId);
     }
 
-    
+    componentDidMount() {
+        this.updateUser();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.router.params.profileId != this.props.router.params.profileId) {
+            this.updateUser();
+        }
+    }
+
+
     render() {
-        return ( 
-        <ProfilePage profile={this.props.profile} updateUserStatus={this.props.updateUserStatus} status={this.props.status}/>)
+        if (!this.props.isAuth && !this.props.router.params.profileId) {
+            return <Navigate to='/login' />
+        }
+        return (
+            <ProfilePage profile={this.props.profile}
+                updateUserStatus={this.props.updateUserStatus}
+                status={this.props.status}
+                isOwner={!this.props.router.params.profileId}
+                savePhoto={this.props.savePhoto}
+                profileInformationEditMode={this.props.profileInformationEditMode}
+                editProfileModeToggler={this.props.editProfileModeToggler}
+                saveProfileData={this.props.saveProfileData}
+            />)
     }
 }
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
+    profileInformationEditMode: state.profilePage.profileInformationEditMode
 })
 
 function withRouter(Component) {
@@ -48,7 +67,7 @@ function withRouter(Component) {
 }
 
 
-export default compose (withAuthRedirect,
+export default compose(
     withRouter,
-     connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }))
-     (ProfilePageContainer);
+    connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, editProfileModeToggler, saveProfileData }))
+    (ProfilePageContainer);

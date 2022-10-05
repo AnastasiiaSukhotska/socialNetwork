@@ -1,7 +1,5 @@
-.selectedPage {
-    font-weight: bold;
-}
-
-.unselectedPage {
-    font-weight: normal;
+.userPageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }

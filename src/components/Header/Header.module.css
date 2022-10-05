@@ -1,8 +1,27 @@
 .header {
     grid-area: h;
-    background-color: rgb(135, 148, 138);
+    background-color: #7c7872;
+    box-shadow: 2px 1px 2px #7c7872;
+    margin-bottom: 1px;
+    padding: 15px;
+    
+  }
+
+  .headerWrapper {
+    display: flex;
+    justify-content: space-between;
   }
   
   .header img {
     width: 20px;
+  }
+
+  .header, .header a {
+    color: #c6c298;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .headerBtn {
+    background-color: #c6c298;
   }

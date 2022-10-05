@@ -41,6 +41,18 @@ export const profileAPI = {
     },
     getUserProfile(userId) {
         return instance.get(`profile/${userId}`)
+    },
+    savePhoto(photo) {
+        const formData = new FormData();
+        formData.append("image", photo);
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    }, 
+    saveProfileData(profileData) {
+        return instance.put(`/profile`, profileData)
     }
 
 }
@@ -51,11 +63,16 @@ export const authAPI = {
  
     },
 
-    login(email, password, rememberMe ) {
-        return instance.post('auth/login', {email, password, rememberMe})
+    login(email, password, rememberMe, captcha ) {
+        return instance.post('auth/login', {email, password, rememberMe, captcha})
     },
 
     logout() {
         return instance.delete('auth/login')
-    }
+    },
+
+    getCaptcha() {
+        return instance.get('security/get-captcha-url')
+     },
+
 }

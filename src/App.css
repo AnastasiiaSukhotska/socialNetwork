@@ -7,12 +7,34 @@
   'n c';
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .app-wrapper-content {
   grid-area: c;
-  background-color: #7d807e;
+  background-color: #f8f8f8;
+  padding: 15px;
 }
+
+.generalButton {
+    padding: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border: none;
+    box-shadow: 1px 1px 3px black;
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+input:focus, textarea:focus {
+  box-shadow: none;
+  outline: none;
+  box-shadow: 1px 1px 3px black;
+}
+
+
 
 
 

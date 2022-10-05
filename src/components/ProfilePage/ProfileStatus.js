@@ -1,48 +1,33 @@
-import { Component } from "react";
-
-export class ProfileStatus extends Component {
-    state = {
-        editMode: false,
-        status: this.props.status
+import { useEffect, useState } from "react";
+import style from './Profile.module.css';
+export function ProfileStatus (props) {
+    let [editMode, setEditMode ] = useState(false);
+    let [ status, setStatus ] = useState(props.status);
+    useEffect(() => {
+        setStatus(props.status);
+    }, [props.status]);
+    let activateEdit = () => {
+        setEditMode(true);
     }
 
-    componentDidUpdate (prevProps, prevState) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
+    let deactivateEdit = () => {
+       setEditMode(false);
+        props.updateUserStatus(status);
     }
 
-    activateEdit = () => {
-        this.setState({
-            editMode: true
-        })
-    }
-
-    deactivateEdit = () => {
-        this.setState({
-            editMode: false
-        })
-        this.props.updateUserStatus(this.state.status)
-    }
-
-    onStatusChange = (e) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
+    let onStatusChange = (e) => {
+        setStatus(e.currentTarget.value);
     }
 
 
-    render() {
+   
         return (
-            <div>
-                {this.state.editMode ?
-                 <input autoFocus={true} onChange={this.onStatusChange} onBlur={this.deactivateEdit} value={this.state.status} /> 
-                :  <span onClick={this.activateEdit}>{this.props.status||'-----'}</span>
+            <div className={style.profileStatusContainer}>
+                {editMode ?
+                 <input autoFocus={true} onChange={onStatusChange} onBlur={deactivateEdit} value={status} /> 
+                :  <span onClick={activateEdit}>{props.status||'-----'}</span>
                 }
             </div>
 
         )
     }
-}

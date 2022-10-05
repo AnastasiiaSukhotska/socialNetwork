@@ -1,0 +1,11 @@
+.selectedPage {
+    font-weight: bold;
+}
+
+.unselectedPage {
+    font-weight: normal;
+}
+
+.paginatorBtn {
+    background-color: #c6c298;
+}

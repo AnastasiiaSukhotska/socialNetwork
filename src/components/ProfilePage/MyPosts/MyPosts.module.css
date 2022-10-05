@@ -1,0 +1,15 @@
+.postsContainer {
+    width: 50%;
+}
+
+.priviousPostsContainer {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.newPostBtn {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    background-color: #c6c298;
+    color: white;
+}
