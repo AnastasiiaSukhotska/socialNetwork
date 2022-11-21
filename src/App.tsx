@@ -6,7 +6,7 @@ import { ProfilePage } from './components/ProfilePage/ProfilePage';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 import UsersPageContainer from './components/Users/UsersPageContainer';
-import ProfilePageContainerWithRouterProps from './components/ProfilePage/ProfilePageContainer';
+import ProfilePageContainer from './components/ProfilePage/ProfilePageContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login';
 import React, { Component, Suspense } from 'react';
@@ -14,12 +14,17 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { instalizeApp } from './redux/reducers/appReducer';
 import { Preloader } from './components/Preloader/Preloader';
+import { AppStateType } from './redux/redux-store';
 
 const DialogsPageContainer = React.lazy(() => import('./components/Dialogs/DialogsPageContainer'));
 
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchToPropsType = {
+  instalizeApp: () => void
+}
 
 
-class App extends Component {
+class App extends Component<MapStateToPropsType & MapDispatchToPropsType> {
   componentDidMount() {
     this.props.instalizeApp();
   }
@@ -38,10 +43,10 @@ class App extends Component {
             <Suspense fallback={<Preloader />}>
               <Routes>
                 <Route path="/" element={<Navigate to="/profile" />} />
-                <Route element={<ProfilePageContainerWithRouterProps />} path='/profile/:profileId' />
-                <Route element={<ProfilePageContainerWithRouterProps />} path='/profile' />
+                <Route element={<ProfilePageContainer />} path='/profile/:profileId' />
+                <Route element={<ProfilePageContainer />} path='/profile' />
                 <Route element={<DialogsPageContainer />} path='/dialogs/*' />
-                <Route element={<UsersPageContainer />} path='/users' />
+                <Route element={<UsersPageContainer title='hello'/>} path='/users' />
                 <Route element={<LoginPage />} path='/login' />
                 <Route element={<div>404 not found</div>} path='*'/> 
 
@@ -54,7 +59,7 @@ class App extends Component {
   }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: AppStateType) => ({
   instalized: state.app.instalized
 })
 
